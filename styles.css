@@ -1,0 +1,161 @@
+
+body {
+	background-color: #c54c36;
+	color:#c54c36;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+}
+
+h1 {
+	font-family: 'Heebo', sans-serif;
+	font-weight: black;
+	color: whitesmoke;
+	font-size: 60px;
+	line-height: 0px;
+	text-align: right;
+}
+
+h2 {
+	font-family: 'Open Sans Serif', sans-serif;
+	font-weight: bold;
+
+	line-height: 0;
+	font-size: 24px;
+}
+p {
+	font-family: 'Open Sans Serif', sans-serif;
+	font-weight: 100;
+	font-size: 22px;
+	line-height: 1.4;
+	color: whitesmoke;
+	text-align: right;
+	vertical-align: bottom;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+	font-family: 'Open Sans Serif', sans-serif;
+	font-weight: bold;
+	line-height: 0;
+	font-size: 24px;
+	line-height: 1;
+}
+
+a:visited {
+	font-family: 'Open Sans Serif', sans-serif;
+	font-weight: bold;
+	line-height: 0;
+	font-size: 24px;
+}
+.vertical-center-box {
+	position: absolute;
+	min-width: 900px;
+	left: 20%;
+	top: 20%;
+	opacity:0;
+	opacity: 1 \9; /*just in case ie*/
+	-webkit-animation:fadeIn ease-in 1;
+	-moz-animation:fadeIn ease-in 1;
+	animation:fadeIn ease-in 1;
+	
+    -webkit-animation-fill-mode:forwards;
+    -moz-animation-fill-mode:forwards;
+	animation-fill-mode:forwards;
+
+	-webkit-animation-duration:0.4s;
+	-moz-animation-duration:0.4s;
+	animation-duration:0.4s;
+}
+
+.container {
+	margin: 0;
+	
+	min-width: auto;
+	max-width:  500px;
+}
+.container.header {
+	height: 48px;
+	vertical-align: top;
+	transform: translateY(-6.5px);
+}
+
+.container.left {
+	margin-top: 0px;
+	float: bottom;
+	text-align: right;
+	vertical-align: bottom;
+}
+
+.container.left.center {
+	transform: translateY(56px);	
+	
+}
+
+.container.left.bottom {	
+	max-width: 460px;
+	transform: translateY(56px);	
+}
+
+.container.right {
+	margin-left: 20px;
+	margin-top: 10px;
+	padding: 10px 20px 10px 10px;
+	background-color: whitesmoke;
+	cursor: pointer;
+	transition:         0.08s ease-in;
+	-o-transition:      0.08s ease-in;
+	-ms-transition:     0.08s ease-in;
+	-moz-transition:    0.08s ease-in;
+	-webkit-transition: 0.08s ease-in;
+}
+
+.container.right:hover{
+	/*background-color: #a13e2e;*/
+	background-color: rgba(0,0,0,0);
+ 	color: whitesmoke;
+}
+
+.container.right:hover ~body {
+	background-color: white;
+}
+
+.container.right:before {
+  -webkit-transition: top 0.09s ease-in;
+}
+
+.container.right:hover:before {
+  	right:0;
+}
+
+.category {
+	vertical-align: top;
+    display: inline-block;
+}
+
+
+.animate-top{
+	position:relative;
+	animation:animatetop 1.7s
+}
+
+@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+.fade-in {
+  opacity:0;
+  opacity: 1 \9; /*just in case ie*/
+  -webkit-animation:fadeIn ease-in 1;
+  -moz-animation:fadeIn ease-in 1;
+  animation:fadeIn ease-in 1;
+
+  -webkit-animation-fill-mode:forwards;
+  -moz-animation-fill-mode:forwards;
+  animation-fill-mode:forwards;
+
+  -webkit-animation-duration:0.2s;
+  -moz-animation-duration:0.2s;
+  animation-duration:0.2s;
+}

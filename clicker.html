@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>PIZZA</title>
+        <meta name="description" content="PIZZA GAME.">
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <div class="top">
+            <h1>Pizzas: <span id="pizza"></span></h1>
+            
+        </div>
+        <div class="top">
+             <button class = "button" id ="btnMakePizza" onclick="pizzaClick(1)">Make pizza</button>
+        </div>
+        
+        <div class="container">
+            <div class="left">
+                <h2>Ingredients.</h2>
+                <button title="Hello World!" class = "containerButton" id ="btnMakeDough" onclick="doughClick(1)">
+                    <div class="textLeft">Make Dough </div>
+                    <div class="textRight">Dough: <span id="dough"></span></div>
+                </button>
+                
+            </div>
+            <div class="center">
+                <h2>Staff.</h2>
+                
+                <button class = "containerButton" id ="btnHireBaker" onclick="hireBakerClick(1)">
+                    <div class="textLeft">
+                        <span id=bakerLeftText>Hire Baker. Cost: 
+                        </span> 
+                        <span id="bakerCost">
+                        </span> 
+                    </div>
+                    <div class="textRight">
+                        <span id=bakerRightText>
+                            Bakers: 
+                        </span>
+                        <span id="bakers">
+                        </span>
+                    </div>
+                </button>
+                
+                <button class = "containerButton" id ="btnHireBaker2" onclick="hireBaker2Click(1)">
+                    <div class="textLeft">
+                        <span id=baker2LeftText>??? 
+                        </span> 
+                        <span id="baker2Cost">
+                        </span> 
+                    </div>
+                    <div class="textRight">
+                        <span id=baker2RightText>
+                        </span>
+                        <span id="bakers2">
+                        </span>
+                    </div>
+                </button>
+                
+            </div>
+            <div class="right">
+                <h2>Upgrades.</h2>
+                <button class="containerButton" id="bakerUpgrade1" onclick="upgradeBaker()">Baker upgrade.</button>
+                
+            </div>
+        </div>
+        <script type="text/javascript" src="scripts.js"></script>
+    </body>
+</html>

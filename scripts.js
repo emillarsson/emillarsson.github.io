@@ -1,9 +1,13 @@
 var Game={};
 
-Game.tooltipTitle = l('tooltipTitleText');
-Game.tooltipPrice = l('tooltipPriceText');
-Game.tooltipDesc = l('tooltipDescText');
-Game.tooltipPizza = l('tooltipPizzasText');
+///////////////////////////
+//       TOOLTIP         //
+///////////////////////////
+
+Game.tooltipTitle = Get('tooltipTitleText');
+Game.tooltipPrice = Get('tooltipPriceText');
+Game.tooltipDesc = Get('tooltipDescText');
+Game.tooltipPizza = Get('tooltipPizzasText');
 Game.Tooltip = function(title, price, desc) { 
     if (price <= Game.pizzas) {
         Game.tooltipPrice.style.color = '#5cf731';
@@ -19,44 +23,95 @@ Game.Tooltip = function(title, price, desc) {
     Game.tooltipPrice.innerHTML = price;
     Game.tooltipDesc.innerHTML = desc;
 }
+
+
+
+
+
+
+
+
+
+
 ///////////////////////////
 // PIZZA
 ///////////////////////////
 
 Game.pizzas = 10000;
+Game.clickAmount = 1;
 Game.lifetime_pizzas = Game.pizzas;
-l('pizza').innerHTML = Math.ceil(Game.pizzas).toLocaleString();
+Get('pizza').innerHTML = Math.ceil(Game.pizzas).toLocaleString();
 
-Game.pizzaButton =l('pizzaButton');
-Game.ClickPizza = function(event, amount) {
-    Game.pizzaClick(1);
+Game.pizzaButton =Get('pizzaButton');
+Game.ClickPizza = function(event) {
+    Game.pizzaClick(Game.clickAmount);
 }
 AddEvent(Game.pizzaButton, 'click', Game.ClickPizza);
 
 Game.pizzaClick = function(number) {
-     if (number > 0 && dough >= number) {
-        Game.pizzas += number;  
-        Game.lifetime_pizzas += number;
-        l('pizza').innerHTML = Math.ceil(Game.pizzas).toLocaleString();
-        doughClick(-number);
-    } else if (number < 0) {
-        Game.pizzas += number;    
-        l('pizza').innerHTML = Math.ceil(Game.pizzas).toLocaleString();
-    } 
+    Game.pizzas += number;  
+    Game.lifetime_pizzas += number;
+    Get('pizza').innerHTML = Math.ceil(Game.pizzas).toLocaleString();
 }
 
+
+
+
+
+
+
+
+
+
 ///////////////////////////
-// DOUGH
+//         DOUGH         //
 ///////////////////////////
 
-var dough = 100000;
-l('dough').innerHTML = Math.ceil(dough).toLocaleString();
+Game.doughByLevel = [];
+Game.doughLevel = 0;
+Game.currentDough = null;
+Game.doughsN = 0;
 
-function doughClick(number) {
-    if (number < 0)
-    dough = dough + number;
-    l('dough').innerHTML = Math.ceil(dough).toLocaleString();
+Game.Dough = function(name, desc, doughFunction) {
+    this.name = name;
+    this.desc = desc;
+    this.level = Game.doughsN;
+    
+    Game.doughByLevel[this.level] = this;
+    Game.doughsN++;
+    
+    this.doughFunction = doughFunction;
 }
+
+new Game.Dough('Wheat dough', 'Just your plain ol&#39 dough');
+new Game.Dough('Sourdough', 'Oh yeah, now we&#39 talking!');
+new Game.Dough('Cookie dough', 'I&#39m not sure this is a thing..');
+
+Game.DoughDiv = {
+    element : Get('dough'),
+    title : Get('doughTitle'),
+    desc : Get('doughDesc'),
+    // image?
+    
+    SetDough : function() {
+        this.title.innerHTML = Game.doughByLevel[Game.doughLevel].name;
+        this.desc.innerHTML = Game.doughByLevel[Game.doughLevel].desc;
+    }
+}
+
+function doughLevelUp() {
+    Game.doughLevel++;
+    Game.DoughDiv.SetDough();
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -70,15 +125,17 @@ Game.ItemsById = [];
 
 Game.itemsN = 0;
 
-Game.Item = function(name, desc, price, type, pizzaFunction) {
+Game.Item = function(name, desc, price, type, pizzaFunction, buyFunction) {
     this.id = Game.itemsN;
     this.name = name;
 	this.desc = desc;
 	this.price = price;
 	this.pizzaFunction = pizzaFunction;
+    this.buyFunction = buyFunction;
     this.type = type;
 	this.unlocked = 0;
     this.noItems = 0;
+    this.ppsBoost = 1; // 1 = 100% of normal pps
     
 	Game.Items[this.name] = this;
 	Game.ItemsById[this.id] = this;
@@ -94,8 +151,8 @@ Game.Item = function(name, desc, price, type, pizzaFunction) {
     this.buy = function() {
         if (Game.pizzas >= this.price) {
             Game.pizzaClick(-this.price)
-            if (this.buyFunction) this.buyFunction(); 
             this.noItems++;
+            if (this.buyFunction) this.buyFunction(); 
             this.price *= 1.15;
             Game.ItemDivsById[this.id].update();
         }
@@ -107,22 +164,15 @@ Game.Item = function(name, desc, price, type, pizzaFunction) {
             return 0;
         }
     }
-    this.getName = function() {
-        return this.name;
-    }
-    this.getDesc = function() {
-        return this.desc;
-    }
-    this.getPrice = function() {
-        return this.price;
+    this.addPPS = function(amount) {
+        this.ppsBoost += amount;
     }
 	return this;
 }
 
-new Game.Item('Baker', 'A lovely baker.', 100, 'staff', function() {
-    return this.noItems;
-});
-new Game.Item('Italian', 'A lovely italian.', 1000, 'staff');
+new Game.Item('Baker', 'A lovely baker.', 15, 'staff', function() {return this.noItems*this.ppsBoost*0.1;}, function() {if (this.noItems == 1) Game.Upgrades['Bakers bake'].unlock()});
+new Game.Item('Italian', 'A lovely italian.', 100, 'staff', function() {return this.noItems*this.ppsBoost*1;}, function() {if (this.noItems == 1) {Game.Upgrades['Italiaano'].unlock()}});
+
 Game.ItemDivs = [];
 Game.ItemDivsById = [];
 
@@ -135,7 +185,7 @@ Game.ItemDiv = function(itemID) {
     this.button.className = 'containerButton';
     this.button.id = Game.ItemsById[this.id].type+this.id;
     
-    l(Game.ItemsById[this.id].type + 'Shop').appendChild(this.button);
+    Get(Game.ItemsById[this.id].type + 'Shop').appendChild(this.button);
     
     this.title = document.createElement('div');
     this.title.className = 'buttonTitle';
@@ -157,7 +207,7 @@ Game.ItemDiv = function(itemID) {
     Game.ItemDivsById[this.id] = this;
     
     AddEvent(this.button, 'click', Game.ItemsById[this.id].buy.bind(Game.ItemsById[this.id]));
-    AddEvent(this.button, 'mouseover', Game.Tooltip.bind(Game.ItemsById[this.id], Game.ItemsById[this.id].getName(), Game.ItemsById[this.id].getPrice(), Game.ItemsById[this.id].getDesc()))
+    AddEvent(this.button, 'mouseover', Game.Tooltip.bind(Game.ItemsById[this.id], Game.ItemsById[this.id].name, Game.ItemsById[this.id].price, Game.ItemsById[this.id].desc))
     AddEvent(this.button, 'mouseout', function() {Game.Tooltip('','','');})
     
     this.unlock = function() {
@@ -178,14 +228,11 @@ Game.ItemDiv = function(itemID) {
 
 }
 
-
-Game.createItemDivs = function() {
+Game.CreateItemDivs = function() {
     for (var i = 0; i < Game.itemsN; i++) {
         new Game.ItemDiv(i);
     }
 }
-Game.createItemDivs();
-
 
 Game.CheckPPS = function(fps) {
     var amount = 0;
@@ -193,7 +240,18 @@ Game.CheckPPS = function(fps) {
         amount += Game.ItemsById[i].checkPPS();
     }
     Game.pizzaClick(amount/fps);
+    Get('pizzaPerSecond').innerHTML = amount.toFixed(1);
 }
+
+
+
+
+
+
+
+
+
+
 
 ///////////////////////////
 // UPGRADES
@@ -206,7 +264,7 @@ Game.UpgradesN = 0;
 Game.UpgradeDivs = [];
 Game.UpgradesOwned = 0;
 
-Game.rebuildUpgrades = function() {
+Game.RebuildUpgrades = function() {
     for (var item in Game.Upgrades) {
         if (item.unlocked == 0 && Game.pizzas >= item.price) {
             item.unlocked = 1;
@@ -215,12 +273,13 @@ Game.rebuildUpgrades = function() {
     }
 }
 
-Game.Upgrade=function(name, desc, price, buyFunction) {
+Game.Upgrade=function(name, desc, price, buyFunction, unlockFunction) {
     this.id = Game.UpgradesN;
     this.name = name;
 	this.desc = desc;
 	this.price = price;
 	this.buyFunction = buyFunction;
+    this.unlockFunction = unlockFunction;
 	this.unlocked = 0;
 	this.bought = 0;
 	this.type = 'upgrade';
@@ -229,13 +288,20 @@ Game.Upgrade=function(name, desc, price, buyFunction) {
 	Game.UpgradesN++;
     
     /* TODO: Unlocking due to building, last item bought etc */
-    this.checkUnlocked = function() {
-        if (Game.lifetime_pizzas > this.price*0.5 && this.unlocked == 0) {
-            this.unlocked = 1;
-            Game.UpgradeDivsById[this.id].unlock();
+    this.CheckUnlocked = function() {
+        if (this.bought == 0) {
+            if (this.unlockFunction) {
+                this.unlockFunction();
+            } else {
+                Game.UpgradeDivsById[this.id].unlock();
+            }
         }
     }
-    this.buy = function() {
+    
+    this.unlock = function() {
+        Game.UpgradeDivsById[this.id].unlock();
+    }
+    this.buy = function() { 
         if (Game.pizzas >= price) {
             this.bought = 1;
             Game.pizzaClick(-this.price)
@@ -246,16 +312,19 @@ Game.Upgrade=function(name, desc, price, buyFunction) {
 	return this;
 }
 
-new Game.Upgrade('Bakers bake', 'Makes the baker bake <b>&nbsp10%&nbsp</b> more pizzas!', 100, function() {
-    Game.baker.boost *= 1.1;
+new Game.Upgrade('Bakers bake', 'The bakers bake <b>twice</b> as many pizzas!', 1000, function() {
+    Game.Items['Baker'].addPPS(1);
+    Game.Upgrades['Bakers gonna bake'].unlock();
 });
-new Game.Upgrade('Bakers gonna bake', 'Makes even moore pizzas', 100, function() {
-    Game.baker.boost *= 1.1;
+new Game.Upgrade('Bakers gonna bake', 'Inspire the bakers to bake <b>twice</b> as many pizzas!', 10000, function() { Game.Items['Baker'].addPPS(1);});
+new Game.Upgrade('Italiaano', 'what u gonna do', 1000, function() {Game.Items['Italian'].addPPS(1);});
+new Game.Upgrade('Sourdough', 'Mhm, fermentation...', 1000, function() {
+    doughLevelUp();
+    Game.Upgrades['Cookie dough'].unlock();
 });
-new Game.Upgrade('Italiaano', 'what u gonna do', 1000, function() {
-    Game.italian.boost *= 1.1;
+new Game.Upgrade('Cookie dough', 'Ehh, I think this is the wrong clicker.', 1000, function() {
+    doughLevelUp();
 });
-
 
 Game.UpgradeDivsById = [];
 Game.UpgradeDivs = [];
@@ -266,8 +335,8 @@ Game.UpgradeDiv = function(upgradeID) {
     this.div.innerHTML = this.id.toLocaleString();
     this.div.className = "upgrade";
     this.div.id = 'upgrade'+this.id;
-    this.div.style.display = 'none';
-    l('upgrades').appendChild(this.div);
+    this.div.style.display = 'block';
+    Get('upgrades').appendChild(this.div);
     
     Game.UpgradeDivs[this.id] = this.div;
     Game.UpgradeDivsById[this.id]=this;
@@ -276,38 +345,61 @@ Game.UpgradeDiv = function(upgradeID) {
     AddEvent(this.div, 'mouseover', Game.Tooltip.bind(Game.UpgradeDivs[this.id], Game.UpgradesById[this.id].name, Game.UpgradesById[this.id].price, Game.UpgradesById[this.id].desc))
     AddEvent(this.div, 'mouseout', function() {Game.Tooltip('','','');})
     this.unlock = function() {
-        toggleDisplay(this.div.id);
+        this.div.style.display = 'block';
         this.enabled = 1;
     }
     this.disable = function() {
-        toggleDisplay(this.div.id);
+        this.div.style.display = 'none';
         this.enabled = 0;
     }
 
 }
 
-Game.createUpgradeDivs = function() {
+Game.CreateUpgradeDivs = function() {
     for (var i = 0; i < Game.UpgradesN; i++) {
-        new Game.UpgradeDiv(i);
-    }
-}
-Game.createUpgradeDivs();
-
-Game.checkUpgrades = function() {
-    for (var i = 0; i < Game.UpgradesN; i++) {
-        Game.UpgradesById[i].checkUnlocked();
+        var u = new Game.UpgradeDiv(i);
+        u.disable();
+        
     }
 }
 
+Game.CheckUpgrades = function() {
+    for (var i = 0; i < Game.UpgradesN; i++) {
+        Game.UpgradesById[i].CheckUnlocked();
+    }
+}
+
+
+
+
+
+
+
+
+
+
 ///////////////////////////
-// Interval functions
+//   INITIALISE GAME     //
 ///////////////////////////
 
+Game.DoughDiv.SetDough();
+Game.CreateItemDivs();
+Game.CreateUpgradeDivs();
+
+
+
+
+
+
+
+
+
+
 
 
 
 ///////////////////////////
-// General functions
+//   General functions   
 ///////////////////////////
 
 function enableDisplay(id) {
@@ -324,19 +416,28 @@ function toggleDisplay(id) {
     }
 }
 
-function l(what) {return document.getElementById(what);}
+function Get(what) {return document.getElementById(what);}
 
 
 function AddEvent(html_element, event_name, event_function){
 	html_element.addEventListener(event_name, event_function, true);
 }
+
+
+
+
+
+
+
+
+
+
 ///////////////////////////
 // MAIN LOOP - 100 FPS
 ///////////////////////////
 
 window.setInterval(function(){
     var globalBoost = 1
-    Game.checkUpgrades();
     Game.CheckPPS(100);
 }, 10);
 

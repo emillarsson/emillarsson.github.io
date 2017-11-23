@@ -10,40 +10,40 @@
     </head>
     <body scroll="no" style="overflow: hidden">
         <div id="game">
-            <div class="top">
-                <h1>Pizzas: <span id="pizza"></span></h1>
+            <div class="itemContainer">
+                    <div class="textCenter">
+                    <h1>Pizzas: <span id="pizza"></span></h1>
+                    </div>
+                    <div class="textCenter">
+                        <h3>Pizzas per second: 
+                            <span id="pizzaPerSecond"></span>
+                        </h3>
+                    </div>
+                <div class="textCenter">
+                    <button class = "pizzaButton" id ="pizzaButton">Make pizza</button>
+                </div>
             </div>
-            <div class="textCenter">
-                <h3>Pizzas per second: 
-                <span id="pizza_per_second"></span>
-                    </h3>
-            </div>
-            <div class="top">
-                 <button class = "button" id ="pizzaButton">Make pizza</button>
-            </div> 
+            <h1><span id="doughTitle"></span></h1>
+            <span id="doughDesc"></span>
             <div class="container">
                 <div class="itemContainer" id="ingredientShop">
                     <h2>Ingredients.</h2>
-                    <button title="Hello World!" class = "containerButton" id ="btnMakeDough" onclick="doughClick(1)">
-                        <div class="textLeft">Make Dough </div>
-                        <div class="textRight">Dough: <span id="dough"></span></div>
-                    </button>
 
                 </div>
                 <div class="itemContainer" id="staffShop">
-                    <h2>Store.</h2>
+                    <h2>Staff.</h2>
                     
                 </div>
                 <div class="itemContainer" id="buildingShop">
-                    <h2>Store.</h2>
+                    <h2>Buildings.</h2>
                     
                 </div>
                 <div class="itemContainer" id="researchShop">
-                    <h2>Store.</h2>
+                    <h2>Research.</h2>
                     
                 </div>
                 <div class="itemContainer" id="explorationShop">
-                    <h2>Store.</h2>
+                    <h2>Exploration.</h2>
                     
                 </div>
              
@@ -85,12 +85,12 @@
                     </button>
                     -->
                 </div>
-            
+            <h1><div class="tooltip" id="tooltipTitleText"></div></h1>
+            <h2><div class="tooltip"><span id="tooltipPizzasText"></span><span id="tooltipPriceText"></span></div></h2>
+            <div class="tooltip" id="tooltipDescText"><h2></h2></div>
         </div>
-        <h1><div class="top" id="tooltipTitleText"></div></h1>
-        <h2><div class="top"><span id="tooltipPizzasText"></span><span id="tooltipPriceText"></span></div></h2>
-        <div class="top" id="tooltipDescText"><h2></h2></div>
         
-    </body>
+        
+    </body> 
     <script type="text/javascript" src="scripts.js"></script>
 </html>

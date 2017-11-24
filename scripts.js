@@ -423,8 +423,11 @@ new Game.Upgrade('Wheat Dough', 'Wheat and water makes the best dough!', 0, func
     enableDisplay('pizzaButton'); 
     Game.clickAllowed = true;});
 
-new Game.Upgrade('Water Pipeline', 'Install a water pipeline for endless supply!', 100, function() {
-    enableDisplay('staffShop'); enableDisplay('Baker'); Game.ItemDivs['Water'].noItems.innerHTML = ''; Game.ItemDivs['Water'].removeEvents();
+new Game.Upgrade('Water Pipeline', 'Install a water pipeline for endless supply!', 50, function() {
+    enableDisplay('staffShop'); 
+    enableDisplay('Baker');
+    enableDisplay('pizzaPerSecondDiv')
+    Game.ItemDivs['Water'].noItems.innerHTML = ''; Game.ItemDivs['Water'].removeEvents();
 });
 
 new Game.Upgrade('Bakers bake', 'The bakers bake <b>twice</b> as many pizzas!', 500, function() {

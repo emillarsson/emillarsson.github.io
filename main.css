@@ -138,8 +138,7 @@ img {
 }
 
 .upgrades {
-        white-space: nowrap;
-
+    white-space: nowrap;
     background: #333333;
     height:auto;
 }
@@ -151,15 +150,22 @@ img {
  
 }
 
+.topContainer {
+    min-width: 300px;
+    overflow: auto;
+    height: 100%;
+}
+
 .itemContainer {
     background: #333333;
     min-width: 300px;
+    max-width: 300px;
     margin-right: 10px;
-    overflow: auto;
+    overflow: hidden;
+    float: left;
     height: 100%;
-    
-    -webkit-overflow-scrolling: touch;
-    ms-overflow-style: none;
+    /*-webkit-overflow-scrolling: touch;
+    ms-overflow-style: none;*/
 }
 
 .itemContainer::-webkit-scrollbar {
@@ -168,6 +174,7 @@ img {
 
 .textCenter {
     text-align: center;
+    align-items: center;
 }
 
 .textLeft {

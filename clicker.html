@@ -10,11 +10,11 @@
     </head>
     <body scroll="no" style="overflow: hidden">
         <div id="game">
-            <div class="itemContainer">
+            <div class="topContainer">
                     <div class="textCenter">
                     <h1>Pizzas: <span id="pizza"></span></h1>
                     </div>
-                    <div class="textCenter">
+                    <div id="pizzaPerSecondDiv">
                         <h3>Pizzas per second: 
                             <span id="pizzaPerSecond"></span>
                         </h3>
@@ -23,9 +23,12 @@
                     <button class = "pizzaButton" id ="pizzaButton">Make pizza</button>
                 </div>
             </div>
-            <h1><span id="doughTitle"></span></h1>
-            <span id="doughDesc"></span>
-            <div class="container">
+            <div id="dough">
+                <h3>Current dough:</h3>
+                <h1><span id="doughTitle"></span></h1>
+                <span id="doughDesc"></span>
+            </div>
+            <div class="container" id="shop">
                 <div class="itemContainer" id="ingredientShop">
                     <h2>Ingredients.</h2>
 
@@ -48,8 +51,9 @@
                 </div>
              
             </div>
-            <h2>Upgrades.</h2>
-            <div class="upgrades" id="upgrades">
+            <div id="upgradesBox">
+                <h2 id='upgradesText'>Upgrades.</h2>
+                <div class="upgrades" id="upgrades">
                     
                     
                     <!--
@@ -85,6 +89,7 @@
                     </button>
                     -->
                 </div>
+            </div>
             <h1><div class="tooltip" id="tooltipTitleText"></div></h1>
             <h2><div class="tooltip"><span id="tooltipPizzasText"></span><span id="tooltipPriceText"></span></div></h2>
             <div class="tooltip" id="tooltipDescText"><h2></h2></div>

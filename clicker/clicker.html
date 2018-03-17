@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>PIZZA</title>
+        <meta name="description" content="PIZZA GAME.">
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body scroll="no" style="overflow: hidden">
+            
+            <div class="leftContainer">
+                <div class="topContainer">
+                <div class="textCenter">
+                    <h1><span id="pizza"></span> pizzas</h1>
+                    </div>
+                    <div id="pizzaPerSecondDiv">
+                        <div class="textCenter">
+                        <h3>Pizzas per second: 
+                            <span id="pizzaPerSecond"></span>
+                        </h3>
+                        </div>
+                    </div>
+                <div class="textCenter">
+                    <button class = "pizzaButton" id ="pizzaButton">Make pizza</button>
+                </div>
+                </div>
+                <div class="horizontalAlignment">
+                    <div class="doughIngredients" id="doughIngredients">
+                        <div class="dough" id="dough">
+                            <div class="label">Dough</div>
+                            <h1><span id="doughTitle"></span></h1>
+                            <span id="doughDesc"></span>
+                        </div>
+                        <div class="ingredients" id="ingredientShop">
+                            <div class="label">Ingredients</div>
+                            
+                        </div>
+                        
+                    </div>
+                    <div class="staffBuildings" id="staffBuilding">
+                        <div class="staff" id="staffShop">
+                            <div class="label">Staff</div>
+                        </div>
+                        <div class="building" id="buildingShop">
+                            <div class="label">Buildings</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tooltipBox" id="tooltip">
+                <h2><div class="tooltip" id="tooltipTitleText"></div></h2>
+                <h3><div class="tooltip"><span id="tooltipPizzasText">
+                    </span><span id="tooltipPriceText"></span></div></h3>
+                <div class="tooltipText" id="tooltipDescText"></div>
+                </div> 
+            </div>
+            <canvas id="canvasStars"></canvas>
+            <canvas id="canvas"></canvas>
+            <div class="rightContainer" id="shop">
+                <div id="itemsBox" id="itemsBox">
+                    <div class="label">
+                        Items
+                    </div>
+                    <div class="items" id="items">
+                    </div>
+                </div>
+                <div id="upgradesBox" id="upgradesBox">
+                    <div class="label">
+                        Research
+                    </div>
+                    <div class="upgrades" id="upgrades">
+                    </div>
+                </div>
+                
+             
+            </div>
+ 
+               
+        
+        
+    </body> 
+    <script type="text/javascript" src="scripts.js"></script>
+</html>

@@ -6,13 +6,14 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>PIZZA</title>
         <meta name="description" content="PIZZA GAME.">
-        <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="space_styles.css">
     </head>
     <body scroll="no" style="overflow: hidden">
-        <div id="game">
-            <div class="topContainer">
-                    <div class="textCenter">
-                    <h1>Pizzas: <span id="pizza"></span></h1>
+            
+            <div class="leftContainer">
+                <div class="topContainer">
+                <div class="textCenter">
+                    <h1><span id="pizza"></span> pizzas</h1>
                     </div>
                     <div id="pizzaPerSecondDiv">
                         <div class="textCenter">
@@ -24,80 +25,60 @@
                 <div class="textCenter">
                     <button class = "pizzaButton" id ="pizzaButton">Make pizza</button>
                 </div>
+                </div>
+                <div class="horizontalAlignment">
+                    <div class="doughIngredients" id="doughIngredients">
+                        <div class="dough" id="dough">
+                            <div class="label">Dough</div>
+                            <h1><span id="doughTitle"></span></h1>
+                            <span id="doughDesc"></span>
+                        </div>
+                        <div class="ingredients" id="ingredientShop">
+                            <div class="label">Ingredients</div>
+                            
+                        </div>
+                        
+                    </div>
+                    <div class="staffBuildings" id="staffBuilding">
+                        <div class="staff" id="staffShop">
+                            <div class="label">Staff</div>
+                        </div>
+                        <div class="building" id="buildingShop">
+                            <div class="label">Buildings</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tooltipBox" id="tooltip">
+                <h2><div class="tooltip" id="tooltipTitleText"></div></h2>
+                <h3><div class="tooltip"><span id="tooltipPizzasText">
+                    </span><span id="tooltipPriceText"></span></div></h3>
+                <div class="tooltipText" id="tooltipDescText"></div>
+                </div> 
             </div>
-            <div id="dough">
-                <h3>Current dough:</h3>
-                <h1><span id="doughTitle"></span></h1>
-                <span id="doughDesc"></span>
-            </div>
-            <div class="container" id="shop">
-                <div class="itemContainer" id="ingredientShop">
-                    <h2>Ingredients.</h2>
-
+            <canvas id="canvasStars"></canvas>
+            <canvas id="canvas"></canvas>
+            <div class="rightContainer" id="shop">
+                <div id="itemsBox" id="itemsBox">
+                    <div class="label">
+                        Items
+                    </div>
+                    <div class="items" id="items">
+                    </div>
                 </div>
-                <div class="itemContainer" id="staffShop">
-                    <h2>Staff.</h2>
-                    
+                <div id="upgradesBox" id="upgradesBox">
+                    <div class="label">
+                        Research
+                    </div>
+                    <div class="upgrades" id="upgrades">
+                    </div>
                 </div>
-                <div class="itemContainer" id="buildingShop">
-                    <h2>Buildings.</h2>
-                    
-                </div>
-                <div class="itemContainer" id="researchShop">
-                    <h2>Research.</h2>
-                    
-                </div>
-                <div class="itemContainer" id="explorationShop">
-                    <h2>Exploration.</h2>
-                    
-                </div>
+                
              
             </div>
-            <div id="upgradesBox">
-                <h2 id='upgradesText'>Upgrades.</h2>
-                <div class="upgrades" id="upgrades">
-                    
-                    
-                    <!--
-                    <button class = "containerButton" id ="upgrades_item0" onclick="upgradesClick('0')">
-                        <div class="buttonTitle">
-                            Bakers bake
-                        </div>
-                        <div class="textLeft">
-                            Cost:  
-                            <span id="upgrade_cost0">
-                            </span> 
-                        </div>
-                    </button>
-                    <button class = "containerButton" id ="upgrades_item1" onclick="upgradesClick('1')">
-                        <div class="buttonTitle">
-                            Baker's gonna bake
-                        </div>
-                        <div class="textLeft">
-                            Cost:  
-                            <span id="upgrade_cost1">
-                            </span> 
-                        </div>
-                    </button>
-                    <button class = "containerButton" id ="upgrades_item2" onclick="upgradesClick('2')">
-                        <div class="buttonTitle">
-                            Double hand gesture
-                        </div>
-                        <div class="textLeft">
-                            Cost:  
-                            <span id="upgrade_cost2">
-                            </span> 
-                        </div>
-                    </button>
-                    -->
-                </div>
-            </div>
-            <h1><div class="tooltip" id="tooltipTitleText"></div></h1>
-            <h2><div class="tooltip"><span id="tooltipPizzasText"></span><span id="tooltipPriceText"></span></div></h2>
-            <div class="tooltip" id="tooltipDescText"><h2></h2></div>
-        </div>
+ 
+               
         
         
     </body> 
-    <script type="text/javascript" src="scripts.js"></script>
+    <script type="text/javascript" src="space_scripts.js"></script>
 </html>

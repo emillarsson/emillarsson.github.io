@@ -56,13 +56,24 @@ function step(x, c) {
 	}
 }
 
+
+var waterLevel = 2
+var waterColour = '#5997f9'
+canvas.backGround = waterColour
+var landscapeColours = ['#f2df8c', '#a1c972', '#538752', '#7c6a59', '#deeae7']
+var maxLevel = 8;
 ctx.fillStyle ='#333333'
 fill = true;
 function drawTop() {
-	ctx.clearRect(0,0,canvas.width, canvas.height)
+	ctx.fillStyle = waterColour;
+	ctx.fillRect(0,0,canvas.width, canvas.height)
 	
-	for (var c = 0; c < 10; c++) {
-		
+	for (var c = waterLevel; c < maxLevel; c++) {
+		if (c == waterLevel) {
+			ctx.fillStyle = waterColour;
+		} else {
+			ctx.fillStyle = landscapeColours[c-waterLevel-1];
+		}
 		ctx.beginPath();
 		for (var x = 0; x < coords.length-1; x++) {
 			for (var y = 0; y < coords[0].length-1; y++) {
@@ -235,7 +246,7 @@ function drawTop() {
 			}
 		}
 		if (fill) {
-			ctx.fillStyle = 'hsl(0,0%,'+ (30 + 70*(10-c)/10) +'%)';
+			//ctx.fillStyle = 'hsl(0,0%,'+ (30 + 70*(10-c)/10) +'%)';
 			ctx.fill();
 		} else {
 			ctx.stroke();
@@ -352,5 +363,5 @@ function updateCircles() {
 	}
 }
 
-coordValues();
+//coordValues();
 drawTop();

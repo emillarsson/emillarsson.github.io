@@ -18,14 +18,13 @@ canvas {
     -webkit-appearance: none;
     background: white;
     position: absolute;
-    bottom: 0;
-    width: 40%;
+    bottom: 10px;
+    width: 400px;
     height: 50px;
-    margin-left: 30%;
-    margin-right: 30%;
+    left: 10px;
     cursor: pointer;
     border: 2px solid #666666;
-    
+    opacity: 0.6;
 }
 .slider:hover {
     opacity: 1;
@@ -43,4 +42,29 @@ canvas {
 .slider:focus {
     outline:0;
 
+}
+
+.fillButton {
+    position: absolute;
+    width: 54px;
+    height: 54px;
+    background: white;
+    left: 420px;
+    bottom: 12px;
+    border: 2px solid #666666;
+    opacity: 0.6;
+}
+
+.fillButton:focus {
+    outline:0;
+
+}
+
+.fillButton:hover {
+    opacity: 1;
+}
+
+.fillButton:active {
+    opacity: 1;
+    background: #666666;
 }

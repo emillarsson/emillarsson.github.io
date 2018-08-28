@@ -199,8 +199,18 @@ var landscapeColours = ['#f2df8c', '#a1c972', '#538752', '#7c6a59', '#deeae7']
 var maxLevel = 8;
 ctx.fillStyle ='#333333'
 fill = true;
+var clickButton = document.getElementById('fillButton');
+clickButton.addEventListener('click', clickFunction);
+function clickFunction(){
+    fill=!fill; 
+    drawTop();
+}
 function drawTop() {
+    if (fill) {
 	ctx.fillStyle = waterColour;
+    } else {
+        ctx.fillStyle = 'white';
+    }
 	ctx.fillRect(0,0,canvas.width, canvas.height)
 	
 	for (var c = waterLevel; c < maxLevel; c++) {

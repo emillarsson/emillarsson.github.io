@@ -158,6 +158,7 @@ var circles = [];
 var coords = [];
 
 noise.seed(Math.random());
+
 for (var x = 0; x < canvas.width; x+=res) {
 	var tempC = []
 	for (var y = 0; y < canvas.height; y+=res) {
@@ -192,13 +193,13 @@ function step(x, c) {
 }
 
 
-var waterLevel = 2
+var waterLevel = 1;
 var waterColour = '#5997f9'
 canvas.backGround = waterColour
 var landscapeColours = ['#f2df8c', '#a1c972', '#538752', '#7c6a59', '#deeae7']
-var maxLevel = 8;
+var maxLevel = 12;
 ctx.fillStyle ='#333333'
-fill = true;
+fill = false;
 var clickButton = document.getElementById('fillButton');
 clickButton.addEventListener('click', clickFunction);
 function clickFunction(){
@@ -343,7 +344,8 @@ function drawTop() {
 							break;
 					}
 					
-				} else {
+				}
+				else {
 					switch(sum) {
 						case 0: case 15: 
 							break;
@@ -394,6 +396,11 @@ function drawTop() {
 			//ctx.fillStyle = 'hsl(0,0%,'+ (30 + 70*(10-c)/10) +'%)';
 			ctx.fill();
 		} else {
+		    if ((c-1) % 3 == 0) {
+		        ctx.lineWidth = 0.6;
+		    } else {
+		        ctx.lineWidth = 0.4;
+		    }
 			ctx.stroke();
 		}	
 
